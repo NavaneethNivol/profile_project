@@ -1,2 +1,2 @@
 # profile_project
-It is a online Public Profile sharing website build using Django Rest APIs
+It is an online Public Profile Sharing website build Using Django REST APIs
