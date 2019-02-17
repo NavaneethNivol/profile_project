@@ -11,7 +11,6 @@ class Userdetails(models.Model):
 
     class Meta:
        ordering = ('first_name',)
-       #ordering = ('first_name','last_name','phone_number','about_me','email_id',)
 
     def __str__(self):
         return self.first_name
