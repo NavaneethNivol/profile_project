@@ -10,7 +10,7 @@ INSTRUCTIONS:
 
       pip install -r requirements.txt
 
-3. Now, to make an empty Database use the following commands:
+3. Now, to create a Database use the following commands:
 
       python manage.py migrate
 
