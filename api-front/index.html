@@ -1,0 +1,122 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="local.css">
+  <title>REST - PROFILE</title>
+</head>
+
+<body>
+  <div class="container">
+
+      <div class="mt-5 text-center text-white">
+          <h1 class="display-5">A SIMPLE REST FORM</h1>
+      </div>
+
+      <div class="jumbotron-fluid my-3 bg-transparent">
+      <div  id="addprofile" class="row d-flex align-items-center justify-content-center">
+
+      <div class="col-md-5 my-3">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title my-3">PROFILE DETAILS</h5>
+              <form>
+                <div class="input-group mb-3">
+                  <input v-model="profile.firstname" type="text" class="form-control" placeholder="Enter First Name" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                </div>
+                <div class="input-group mb-3">
+                  <input v-model="profile.lastname" type="text" class="form-control" placeholder="Enter Last Name" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                </div>
+                <div class="input-group mb-3">
+                  <input v-model="profile.about" type="text" class="form-control" placeholder="About Yourself" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                </div>
+                <div class="input-group mb-3">
+                    <input v-model="profile.mail" type="text" class="form-control" placeholder="Enter Mail ID" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                </div>
+                <div class="input-group mb-3">
+                    <input v-model="profile.phone" type="number" class="form-control" placeholder="Enter Phone Number" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-5 my-3">
+          <div class="card text-center">
+            <div class="card-body">
+              <div class="alert alert-info" role="alert">Live Preview</div>
+              <h4 class="display-5">{{ profile.firstname }} {{ profile.lastname }}</h4>
+              <p class="lead">{{ profile.about }}</p>
+              <p>{{ profile.mail }}<br>{{ profile.phone }}</p>
+              <div v-if="boolsubmit">
+                <hr>
+                <button v-on:click="postnow" class="btn btn-primary">ADD ENTRY</button>
+                <a href="view.html" class="btn btn-primary">VIEW ALL ENTRIES</a>
+              </div>
+              <div v-else>
+                <hr>
+                <div class="alert alert-success" role="alert">User Details Submitted Successfully!</div>
+                <a href="index.html" class="btn btn-success">RELOAD</a>
+                <a href="view.html" class="btn btn-primary">VIEW ALL ENTRIES</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      </div>
+
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script>
+  var app = new Vue({
+      el: '#addprofile',
+      data: {
+        profile: {
+          firstname : "",
+          lastname : "",
+          mail : "",
+          about : "",
+          phone : "",
+        },
+        boolsubmit: true
+      },
+    methods: {
+    postnow: function (event) {
+      if (this.profile.firstname && this.profile.lastname) {
+      this.boolsubmit = false,
+      axios({
+            method: 'post',
+            url: 'http://localhost:8000/form/',
+            data: {
+              first_name: this.profile.firstname,
+              last_name: this.profile.lastname,
+              email_id: this.profile.mail,
+              about_me: this.profile.about,
+              phone_number: this.profile.phone
+            }
+          })
+          .then(function (response) {
+            console.log(response);
+          });
+          } 
+      else {
+        alert("Please Enter Firstname & Lastname")
+      }
+    } 
+    }
+  })
+
+  </script>
+
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="local.css">
+  <title>VIEW - PROFILES</title>
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="mt-5 text-center text-white">
+            <h1 class="display-5">VIEW ALL ENTRIES</h1>
+            <a href="index.html" class="btn btn-primary">ADD ENTRY</a>
+    </div>
+
+    <div class="row justify-content-center">
+
+      <div id="app" class="jumbotron-fluid my-3 bg-transparent">
+            <div v-for="current in info">
+                    <div class="my-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h4 class="display-5">{{ current.first_name }} {{ current.last_name }}</h4>
+                                <p class="lead">{{ current.about_me }}</p>
+                                <p>{{ current.email_id }}<br>{{ current.phone_number }}</p>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+       </div>
+
+    </div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script>
+new Vue({
+  el: '#app',
+  data () {
+    return {
+      info: null
+    }
+  },
+  mounted () {
+    axios
+      .get('http://localhost:8000/form/')
+      .then(response => (this.info = response.data))
+  }
+})
+  </script>
+
+  </body>
+</html>
